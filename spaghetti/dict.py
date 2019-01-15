@@ -1,4 +1,4 @@
-def flatten(obj):
+def flattened(obj):
   def merge(d1, d2):
     d = d1.copy()
     for k, v in d2.items():
