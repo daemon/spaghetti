@@ -1,3 +1,6 @@
+import random
+
+
 def unfolded(obj):
     if not isinstance(obj, list):
         return [obj]
@@ -21,7 +24,7 @@ def striped(indices, *lists):
     return [l[idx] for l, idx in zip(lists, indices)]
 
 
-def cross(*lists):
+def cross(*lists, randomize=False):
     def increment():
         for idx, index in reversed(list(enumerate(indices))):
             if index < len(lists[idx]) - 1:
@@ -31,9 +34,14 @@ def cross(*lists):
                 indices[idx] = 0
         return False
 
+    if randomize:
+        random_map = [list(range(len(x))) for x in lists]
+        list(map(random.shuffle, random_map))
+
     if len(lists) == 0:
         raise StopIteration
     indices = [0] * len(lists)
     while True:
-        yield striped(indices, *lists)
+        yield striped([r[x] for r, x in zip(random_map, indices)] if randomize else indices, *lists)
         if not increment(): break
+
