@@ -1,6 +1,11 @@
 import random
 
 
+def split(lst, size):
+    for idx in range(0, len(lst), size):
+        yield lst[idx:idx + size]
+
+
 def unfolded(obj):
     if not isinstance(obj, list):
         return [obj]
